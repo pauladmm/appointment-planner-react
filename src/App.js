@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes, NavLink, Navigate } from "react-router-dom";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
 
 function App() {
+  constructor(props){
+  super(props);
+  this.state = {
+    contacts: ["name", "phone", "email"],
+    appointments: ["title", "contact", "date", "time"],
+  };}
+
   /*
   Define state variables for 
   contacts and appointments 
   */
+
+  const [contact, newContact] = useState(contacts);
+
+  const [appointment, setAppointment] = useState("");
 
   const ROUTES = {
     CONTACTS: "/contacts",
