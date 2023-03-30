@@ -1,25 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes, NavLink, Navigate } from "react-router-dom";
 
 import { AppointmentsPage } from "./containers/appointmentsPage/AppointmentsPage";
 import { ContactsPage } from "./containers/contactsPage/ContactsPage";
 
 function App() {
-  constructor(props){
-  super(props);
-  this.state = {
-    contacts: ["name", "phone", "email"],
-    appointments: ["title", "contact", "date", "time"],
-  };}
-
   /*
-  Define state variables for 
-  contacts and appointments 
+  Arrays for tracking data
   */
+  let contacts = [
+    {
+      name: "name",
+      email: "email",
+      phone: "phone",
+    },
+  ];
 
-  const [contact, newContact] = useState(contacts);
+  let appointments = [
+    {
+      title: "title",
+      contact: "contact",
+      date: "date",
+      time: "time",
+    },
+  ];
 
-  const [appointment, setAppointment] = useState("");
+  // Callback functions of contacts and appointments
+  const newContact = (name, email, phone) => {
+    contacts.push(name, email, phone);
+  };
+
+  const newAppointment = (title, contact, date, time) => {
+    appointments.push(title, contact, date, time);
+  };
 
   const ROUTES = {
     CONTACTS: "/contacts",
@@ -53,11 +66,22 @@ function App() {
         <Routes>
           <Route exact path="/" />
 
-          <Route path={ROUTES.CONTACTS} element={<ContactsPage />} />
-          {/* Add props to ContactsPage */}
+          <Route
+            path={ROUTES.CONTACTS}
+            element={
+              <ContactsPage contacts={contacts} addContact={newContact} />
+            }
+          />
 
-          <Route path={ROUTES.APPOINTMENTS} element={<AppointmentsPage />} />
-          {/* Add props to AppointmentsPage */}
+          <Route
+            path={ROUTES.APPOINTMENTS}
+            element={
+              <AppointmentsPage
+                appointment={appointments}
+                addAppointment={newAppointment}
+              />
+            }
+          />
         </Routes>
       </main>
     </>
